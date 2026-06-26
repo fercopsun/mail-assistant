@@ -31,13 +31,15 @@ def main():
     for acc in accounts:
         print(f"正在抓取 {acc['address']}…", end=" ", flush=True)
         try:
-            mails = fetch_recent_mails(
+            mails, warnings = fetch_recent_mails(
                 provider_name=acc["provider"],
                 address=acc["address"],
                 password=acc["password"],
                 hours=args.hours,
                 verbose=True,
             )
+            for w in warnings:
+                print(f"[警告] {w}")
             print(f"{len(mails)} 封")
             all_mails.extend(mails)
         except Exception as e:

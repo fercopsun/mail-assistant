@@ -36,6 +36,7 @@ class ClassifiedMail:
     snippet: str
     category: str
     reason: str
+    message_id: str = ""
 
 
 def classify_mails(
@@ -80,6 +81,7 @@ def classify_mails(
                 snippet=m.snippet,
                 category=entry.get("category", "仅供参考"),
                 reason=entry.get("reason", "（分类结果解析失败）"),
+                message_id=m.message_id,
             )
         )
     return classified

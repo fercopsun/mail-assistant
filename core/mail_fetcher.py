@@ -28,6 +28,7 @@ class MailItem:
     sender: str
     date: datetime
     snippet: str          # 正文前 300 字
+    message_id: str = ""  # Message-ID 头，供 UI 构造跳转链接
     raw_link: str = ""    # 占位，UI 层可用于跳转
 
 
@@ -97,7 +98,7 @@ def fetch_recent_mails(
     hours: int = 24,
     folder: str = "INBOX",
     verbose: bool = False,
-) -> list[MailItem]:
+) -> tuple[list[MailItem], list[str]]:
     """
     两步流程：
     1. 批量拉取头部（Date/From/Subject），客户端过滤出最近 `hours` 小时内的邮件。
@@ -106,6 +107,8 @@ def fetch_recent_mails(
     这样即使 IMAP 服务器不支持 SINCE 过滤（如 QQ），也不会把整个收件箱
     的完整正文全部下载下来。
     """
+    warnings: list[str] = []
+
     def log(msg: str) -> None:
         if verbose:
             print(f"    [{time.strftime('%H:%M:%S')}] {msg}", flush=True)
@@ -182,10 +185,12 @@ def fetch_recent_mails(
 
         # 截断边界检测：若已截断且最老一封仍在窗口内，说明可能有邮件被漏掉
         if was_truncated and oldest_date is not None and oldest_date >= since_dt:
-            print(
-                f"[警告] 该账号候选邮件已达到截断上限（{_MAX_CANDIDATE} 封），"
+            w = (
+                f"该账号候选邮件已达到截断上限（{_MAX_CANDIDATE} 封），"
                 "可能存在更早的、仍在 24 小时内但未被抓取到的邮件"
             )
+            warnings.append(w)
+            print(f"[警告] {w}")
 
         # ── 第二步：只对通过过滤的邮件批量拉完整正文 ────────────────────
         t5 = time.time()
@@ -205,6 +210,7 @@ def fetch_recent_mails(
                 uid = _seq_num(item[0]) or "?"
                 subject = _decode_header(msg.get("Subject", "(无主题)"))
                 sender  = _decode_header(msg.get("From", ""))
+                message_id = msg.get("Message-ID", "").strip()
                 dt = _parse_date(msg.get("Date", "")) or datetime.now(timezone.utc)
                 if dt < since_dt:
                     continue  # 二次精确过滤（头部阶段仅按天过滤时的残余）
@@ -217,6 +223,7 @@ def fetch_recent_mails(
                         sender=sender,
                         date=dt,
                         snippet=snippet,
+                        message_id=message_id,
                     )
                 )
 
@@ -226,4 +233,4 @@ def fetch_recent_mails(
         )
 
     mails.sort(key=lambda m: m.date, reverse=True)
-    return mails
+    return mails, warnings

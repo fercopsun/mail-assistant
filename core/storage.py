@@ -43,3 +43,17 @@ def load_llm_config() -> dict:
         data["base_url"] = _DEFAULT_BASE_URL
 
     return data
+
+
+def save_accounts(accounts: list[dict]) -> None:
+    path = _BASE / "accounts.yaml"
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with open(path, "w", encoding="utf-8") as f:
+        yaml.dump({"accounts": accounts}, f, allow_unicode=True, default_flow_style=False)
+
+
+def save_llm_config(config: dict) -> None:
+    path = _BASE / "llm.yaml"
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with open(path, "w", encoding="utf-8") as f:
+        yaml.dump(config, f, allow_unicode=True, default_flow_style=False)
