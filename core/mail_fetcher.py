@@ -136,7 +136,8 @@ def fetch_recent_mails(
 
         # 部分服务商（如 QQ）不支持 SINCE，会返回整个收件箱。
         # IMAP 序列号按时间升序排列，截取末尾 N 封即为最新邮件。
-        if len(all_uids) > _MAX_CANDIDATE:
+        was_truncated = len(all_uids) > _MAX_CANDIDATE
+        if was_truncated:
             log(
                 f"搜索完成（{time.time()-t3:.1f}s），"
                 f"SINCE 返回 {len(all_uids)} 封（服务商未过滤），"
@@ -152,6 +153,7 @@ def fetch_recent_mails(
         # ── 第一步：批量拉头部，客户端过滤日期 ──────────────────────────
         t4 = time.time()
         passing: list[bytes] = []
+        oldest_date: datetime | None = None
 
         for i in range(0, len(all_uids), _HEADER_BATCH):
             chunk = all_uids[i : i + _HEADER_BATCH]
@@ -167,6 +169,8 @@ def fetch_recent_mails(
                     continue
                 hdr_msg = email.message_from_bytes(item[1])
                 dt = _parse_date(hdr_msg.get("Date", ""))
+                if dt is not None and (oldest_date is None or dt < oldest_date):
+                    oldest_date = dt
                 # 日期无法解析时保守地纳入（避免漏掉真实近期邮件）
                 if dt is None or dt >= since_dt:
                     passing.append(seq.encode())
@@ -175,6 +179,13 @@ def fetch_recent_mails(
             f"头部阶段完成（{time.time()-t4:.1f}s），"
             f"{len(passing)} 封在 {hours}h 内，拉取正文…"
         )
+
+        # 截断边界检测：若已截断且最老一封仍在窗口内，说明可能有邮件被漏掉
+        if was_truncated and oldest_date is not None and oldest_date >= since_dt:
+            print(
+                f"[警告] 该账号候选邮件已达到截断上限（{_MAX_CANDIDATE} 封），"
+                "可能存在更早的、仍在 24 小时内但未被抓取到的邮件"
+            )
 
         # ── 第二步：只对通过过滤的邮件批量拉完整正文 ────────────────────
         t5 = time.time()
