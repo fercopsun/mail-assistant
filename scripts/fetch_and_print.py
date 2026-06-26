@@ -36,6 +36,7 @@ def main():
                 address=acc["address"],
                 password=acc["password"],
                 hours=args.hours,
+                verbose=True,
             )
             print(f"{len(mails)} 封")
             all_mails.extend(mails)
