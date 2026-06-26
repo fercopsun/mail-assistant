@@ -23,6 +23,9 @@ def load_accounts() -> list[dict]:
     return accounts
 
 
+_DEFAULT_BASE_URL = "https://api.openai.com/v1"
+
+
 def load_llm_config() -> dict:
     path = _BASE / "llm.yaml"
     if not path.exists():
@@ -32,7 +35,11 @@ def load_llm_config() -> dict:
     with open(path, encoding="utf-8") as f:
         data = yaml.safe_load(f) or {}
 
-    for field in ("api_key", "base_url", "model"):
+    for field in ("api_key", "model"):
         if not data.get(field):
             raise ValueError(f"llm.yaml 缺少字段：{field}")
+
+    if not data.get("base_url"):
+        data["base_url"] = _DEFAULT_BASE_URL
+
     return data

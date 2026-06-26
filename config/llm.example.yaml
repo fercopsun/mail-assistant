@@ -1,9 +1,13 @@
 # LLM 提供商配置模板 —— 复制为 llm.yaml 并填入真实值
 # llm.yaml 已在 .gitignore 中排除，不会被提交
 
-api_key: sk-your-key-here
-# DeepSeek:  https://api.deepseek.com
-# OpenAI:    https://api.openai.com/v1
-# 其他兼容服务：填对应的 base_url
-base_url: https://api.deepseek.com
-model: deepseek-chat
+# 必填：你的 API key（格式不限，不同厂商格式各异）
+api_key: your-api-key-here
+
+# 可选：不填则默认使用 https://api.openai.com/v1
+# 使用其他兼容服务时取消注释并填入对应地址：
+# base_url: https://api.deepseek.com
+
+# 必填：模型名称（不同厂商差异较大，请明确填写）
+# 示例：deepseek-chat、gpt-4o、gpt-4o-mini
+model: your-model-name-here
