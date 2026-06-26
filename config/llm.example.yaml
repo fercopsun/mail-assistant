@@ -1,0 +1,9 @@
+# LLM 提供商配置模板 —— 复制为 llm.yaml 并填入真实值
+# llm.yaml 已在 .gitignore 中排除，不会被提交
+
+api_key: sk-your-key-here
+# DeepSeek:  https://api.deepseek.com
+# OpenAI:    https://api.openai.com/v1
+# 其他兼容服务：填对应的 base_url
+base_url: https://api.deepseek.com
+model: deepseek-chat

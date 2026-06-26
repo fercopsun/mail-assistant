@@ -1,0 +1,20 @@
+# 账号和密钥 —— 绝对不能提交
+config/accounts.yaml
+config/llm.yaml
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+dist/
+build/
+
+# 本地缓存
+cache/
+*.json.cache
+
+# 系统
+.DS_Store
+*.swp

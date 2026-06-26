@@ -1,0 +1,17 @@
+# 邮箱账户配置模板 —— 复制为 accounts.yaml 并填入真实值
+# accounts.yaml 已在 .gitignore 中排除，不会被提交
+
+accounts:
+  - provider: gmail
+    address: you@gmail.com
+    # Gmail 须在"Google 账户 → 安全 → 应用专用密码"生成 16 位密码
+    password: your-app-password-here
+
+  # - provider: qq
+  #   address: you@qq.com
+  #   # QQ 邮箱须在"邮箱设置 → 账户 → 开启 IMAP"后生成授权码
+  #   password: your-qq-authcode-here
+
+  # - provider: 163
+  #   address: you@163.com
+  #   password: your-163-authcode-here
