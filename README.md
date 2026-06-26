@@ -1,44 +1,37 @@
 # 多邮箱 AI 邮件助手
 
-把你的多个邮箱汇总到一起，用自选的 LLM 每天自动分类邮件、辅助起草回信。完全跑在本地，密钥不离开你的电脑。
+> 本文档是给 Claude Code 的项目说明书，描述要构建什么、为什么这样设计。
+> 实际代码实现请参考 `ROADMAP.md` 按阶段进行，每个阶段建议开一个新的 Claude Code 会话。
 
-## 功能
+## 这是什么
 
-- **每日摘要**：定时抓取最近邮件，按「今天必须处理 / 本周跟进 / 仅供参考 / 可忽略」四级分类，每条带优先级标注。
-- **辅助回信**：选中一封邮件，输入你想表达的要点，AI 结合邮件上下文生成得体回复草稿，你可以编辑后再手动确认发送。
+一个跑在本地电脑上的工具，把你的多个邮箱（Gmail / QQ邮箱 / 163邮箱 / 126邮箱，Outlook 后续支持）汇总到一起，用你自选的 LLM（DeepSeek、OpenAI 或任何 OpenAI 兼容接口）做两件事：
 
-## 支持的邮箱
+1. **每日摘要**：定时（比如每天早上8点）抓取最近邮件，分析「今天必须处理 / 本周跟进 / 仅供参考 / 可忽略」分类，每条带优先级和邮件链接。
+2. **辅助回信**：针对某封邮件，你加入想表达的意思，点「生成」，AI 结合邮件内容与上下文，拟出一段得体的后续回复，你可以再编辑，最后按「确认发送」按钮才会真正发出。
 
-| 邮箱 | 认证方式 | 备注 |
-|------|----------|------|
-| Gmail | IMAP + 应用专用密码 | 在 Google 账户安全设置里生成 |
-| QQ 邮箱 | IMAP + 授权码（16位） | 在邮箱设置 → 账户里开启并生成，不是 QQ 密码 |
-| 163 / 126 邮箱 | IMAP + 客户端授权密码 | 在邮箱设置里开启后生成 |
-| Outlook | OAuth2（计划支持） | 2026年4月后密码登录已全面失效 |
+## 为什么这样设计
+
+- **本地脚本，不是网页 artifact**：IMAP/SMTP 是底层网络协议，浏览器无法直接建立这种原始连接，所以这必须是一个跑在本机、有完整网络权限的 Python 程序。
+- **LLM 提供商不绑定**：所有调用走 OpenAI 兼容的 `chat/completions` 接口，用户在设置里自己填 `api_key` / `base_url` / `model`，DeepSeek、OpenAI、其他兼容服务都能直接用。
+- **发送动作必须人工确认**：分类、起草都可以自动，但「真正发出去」这一步默认卡一个确认环节——AI 判断错了收件人或语气，发出去的邮件没有撤回键。这是默认行为，不是死锁限制，后续可以为「已知安全」的模板回复单独放开。
+- **每个邮箱账户的认证方式不同，必须分开说明**：
+  | 邮箱 | 认证方式 | 备注 |
+  |---|---|---|
+  | Gmail | IMAP + 应用专用密码（或 OAuth2） | 二选一，应用密码更快 |
+  | QQ邮箱 | IMAP + 授权码（16位，邮箱设置里生成），不是QQ密码 | `imap.qq.com` / `smtp.qq.com` |
+  | 163 / 126邮箱 | IMAP + 客户端授权密码（生成方式同QQ） | 统一用 `imap.163.com` / `smtp.163.com` 兼容性最好 |
+  | Outlook | **必须走 OAuth2**，2026年4月后密码和应用专用密码全部失效 | 复杂度显著更高，单独支持，见 ROADMAP |
 
 ## 技术栈
 
 - Python 3.11+
+- `imaplib` / `smtplib`（标准库，邮件协议层）
 - Streamlit（本地网页界面）
-- `imaplib` / `smtplib`（标准库）
-- 任意 OpenAI 兼容 LLM（DeepSeek、OpenAI 等，填入 `api_key` / `base_url` / `model` 即可切换）
-- `cron`（macOS/Linux）或任务计划程序（Windows）触发定时任务
+- 任意 OpenAI 兼容 SDK 调用方式（`openai` 库）
+- 系统自带定时任务（macOS/Linux 用 `cron`，Windows 用「任务计划程序」）触发脚本，而不是程序自己常驻轮询
 
-## 快速开始
+## 文档索引
 
-```bash
-git clone https://github.com/fercopsun/mail-assistant.git
-cd mail-assistant
-pip install -r requirements.txt
-
-cp config/accounts.example.yaml config/accounts.yaml
-cp config/llm.example.yaml config/llm.yaml
-# 编辑两个配置文件，填入邮箱授权码和 LLM API key
-
-python scripts/fetch_and_print.py   # 验证邮箱连接
-```
-
-## 安全说明
-
-- 所有密码和 API key 只存在本地 `config/accounts.yaml` 和 `config/llm.yaml`，这两个文件已在 `.gitignore` 中排除，不会被上传。
-- 发送邮件前默认需要手动二次确认，AI 不会自动发出任何邮件。
+- `ARCHITECTURE.md` —— 模块分工、每个文件的职责和接口
+- `ROADMAP.md` —— 分阶段版本计划，每阶段可独立验收
