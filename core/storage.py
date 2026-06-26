@@ -57,3 +57,25 @@ def save_llm_config(config: dict) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     with open(path, "w", encoding="utf-8") as f:
         yaml.dump(config, f, allow_unicode=True, default_flow_style=False)
+
+
+_SETTINGS_DEFAULTS: dict = {
+    "auto_mark_read": False,
+}
+
+
+def load_settings() -> dict:
+    """加载 UI 行为开关，文件不存在时返回默认值（不抛错）。"""
+    path = _BASE / "settings.yaml"
+    if not path.exists():
+        return dict(_SETTINGS_DEFAULTS)
+    with open(path, encoding="utf-8") as f:
+        data = yaml.safe_load(f) or {}
+    return {**_SETTINGS_DEFAULTS, **data}
+
+
+def save_settings(settings: dict) -> None:
+    path = _BASE / "settings.yaml"
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with open(path, "w", encoding="utf-8") as f:
+        yaml.dump(settings, f, allow_unicode=True, default_flow_style=False)

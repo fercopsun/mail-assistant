@@ -1,6 +1,7 @@
 # 账号和密钥 —— 绝对不能提交
 config/accounts.yaml
 config/llm.yaml
+config/settings.yaml
 
 # Python
 __pycache__/
