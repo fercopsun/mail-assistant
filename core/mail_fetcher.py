@@ -1,5 +1,6 @@
 """通用 IMAP 邮件抓取层，对上层屏蔽服务商差异。"""
 
+import codecs
 import re
 import imaplib
 import email
@@ -37,7 +38,7 @@ def _decode_header(value: str) -> str:
     result = []
     for raw, charset in parts:
         if isinstance(raw, bytes):
-            result.append(raw.decode(charset or "utf-8", errors="replace"))
+            result.append(raw.decode(_safe_charset(charset), errors="replace"))
         else:
             result.append(raw)
     return "".join(result)
@@ -48,7 +49,7 @@ def _safe_charset(charset: str | None) -> str:
     if not charset:
         return "utf-8"
     try:
-        "".encode().decode(charset)
+        codecs.lookup(charset)
         return charset
     except LookupError:
         return "latin-1"
@@ -134,7 +135,7 @@ def fetch_recent_mails(
         log(f"文件夹 OK（{time.time()-t2:.1f}s），正在搜索 SINCE {since_str}…")
         t3 = time.time()
 
-        _, data = imap.search(None, f'(SINCE "{since_str}")')
+        _, data = imap.search(None, f'SINCE "{since_str}"')
         all_uids = data[0].split() if data[0] else []
 
         # 部分服务商（如 QQ）不支持 SINCE，会返回整个收件箱。
@@ -195,6 +196,7 @@ def fetch_recent_mails(
         # ── 第二步：只对通过过滤的邮件批量拉完整正文 ────────────────────
         t5 = time.time()
         mails: list[MailItem] = []
+        skipped = 0
 
         for i in range(0, len(passing), _BODY_BATCH):
             chunk = passing[i : i + _BODY_BATCH]
@@ -206,30 +208,39 @@ def fetch_recent_mails(
                 raw = item[1]
                 if not isinstance(raw, bytes):
                     continue
-                msg = email.message_from_bytes(raw)
                 uid = _seq_num(item[0]) or "?"
-                subject = _decode_header(msg.get("Subject", "(无主题)"))
-                sender  = _decode_header(msg.get("From", ""))
-                message_id = msg.get("Message-ID", "").strip()
-                dt = _parse_date(msg.get("Date", "")) or datetime.now(timezone.utc)
-                if dt < since_dt:
-                    continue  # 二次精确过滤（头部阶段仅按天过滤时的残余）
-                snippet = _extract_text(msg)
-                mails.append(
-                    MailItem(
-                        uid=uid,
-                        account=address,
-                        subject=subject,
-                        sender=sender,
-                        date=dt,
-                        snippet=snippet,
-                        message_id=message_id,
+                try:
+                    msg = email.message_from_bytes(raw)
+                    subject = _decode_header(msg.get("Subject", "(无主题)"))
+                    sender  = _decode_header(msg.get("From", ""))
+                    message_id = msg.get("Message-ID", "").strip()
+                    dt = _parse_date(msg.get("Date", "")) or datetime.now(timezone.utc)
+                    if dt < since_dt:
+                        continue  # 二次精确过滤（头部阶段仅按天过滤时的残余）
+                    snippet = _extract_text(msg)
+                    mails.append(
+                        MailItem(
+                            uid=uid,
+                            account=address,
+                            subject=subject,
+                            sender=sender,
+                            date=dt,
+                            snippet=snippet,
+                            message_id=message_id,
+                        )
                     )
-                )
+                except Exception as exc:
+                    skipped += 1
+                    print(f"[跳过] {address} uid={uid} 解析异常：{exc}")
+
+        if skipped:
+            w = f"本次抓取有 {skipped} 封邮件解析失败已跳过（不影响其他邮件展示）"
+            warnings.append(w)
+            print(f"[警告] {w}")
 
         log(
             f"正文阶段完成（{time.time()-t5:.1f}s），"
-            f"有效 {len(mails)} 封，总耗时 {time.time()-t0:.1f}s"
+            f"有效 {len(mails)} 封，跳过 {skipped} 封，总耗时 {time.time()-t0:.1f}s"
         )
 
     mails.sort(key=lambda m: m.date, reverse=True)

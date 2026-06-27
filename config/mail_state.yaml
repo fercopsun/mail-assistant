@@ -1,0 +1,165 @@
+unprocessed: []
+processed:
+- uid: '6212'
+  account: chengsun2001@gmail.com
+  subject: Find out more about our updated Terms of Service
+  sender: Google <google-noreply@google.com>
+  date_str: 2026-06-26 11:34
+  date_iso: '2026-06-26T11:34:15-07:00'
+  snippet: "chengsun2001@gmail.com\r\n\r\nEvery couple of years, we update our Terms\
+    \ of Service. We wanted to let you  \r\nknow ahead of time that the next update\
+    \ will be on 30 July 2026.\r\n\r\nThese changes won't affect the way that you\
+    \ use our  \r\n<https://c.gle/AOPyDKQAX_m0c2mJ9bytJuOj0MVj3Z0eo3k7uKY954Jkijua_hM9aR5aW"
+  reason: Google服务条款更新，不可退订的通知
+  message_id: <71c8784ddd62a8973c691c767433f6bc1e1adfe3-20400046-613148321@google.com>
+  category: 记录/公告
+  first_seen: '2026-06-27T08:31:33.990956+00:00'
+  processed_at: '2026-06-27T08:32:02.090968+00:00'
+- uid: '6207'
+  account: chengsun2001@gmail.com
+  subject: Security alert
+  sender: Google <no-reply@accounts.google.com>
+  date_str: 2026-06-26 12:24
+  date_iso: '2026-06-26T12:24:20+00:00'
+  snippet: "[image: Google]\r\nApp password created to sign in to your account\r\n\
+    \r\n\r\nchengsun2001@gmail.com\r\nIf you didn't generate this password for 邮件管理器用,\
+    \ someone else might be\r\nusing your account. Check and secure your account now.\r\
+    \nCheck activity\r\n<https://accounts.google.com/AccountChooser?Email=chengsun2001"
+  reason: Google安全提示，不可退订的账号通知
+  message_id: <vYGt1GMh15VNfbTZCevAxw@notifications.google.com>
+  category: 记录/公告
+  first_seen: '2026-06-27T08:31:33.990956+00:00'
+  processed_at: '2026-06-27T08:32:02.091004+00:00'
+- uid: '25493'
+  account: 3220653277@qq.com
+  subject: Your Friday morning order with Uber Eats
+  sender: Uber Receipts <noreply@uber.com>
+  date_str: 2026-06-26 21:13
+  date_iso: '2026-06-26T21:13:07+00:00'
+  snippet: "<!doctype html><html xmlns=\"http://www.w3.org/1999/xhtml\" xmlns:v=\"\
+    urn:schemas-microsoft-com:vml\" xmlns:o=\"urn:schemas-microsoft-com:office:office\"\
+    ><head><title></title>\r\n<meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\"\
+    ><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width,init"
+  reason: Uber订单收据，不可退订的事务通知
+  message_id: <ab26fbe8-f78d-58b6-9a45-a28bd36270af@mail.uber.com>
+  category: 记录/公告
+  first_seen: '2026-06-27T08:31:33.990956+00:00'
+  processed_at: '2026-06-27T08:32:02.091014+00:00'
+- uid: '18470'
+  account: 3220653277@qq.com
+  subject: Security alert for chengsun2001@gmail.com
+  sender: Google <no-reply@accounts.google.com>
+  date_str: 2026-06-26 12:24
+  date_iso: '2026-06-26T12:24:20+00:00'
+  snippet: "This is a copy of a security alert sent to chengsun2001@gmail.com.\r\n\
+    3220653277@qq.com is the recovery email for this account. If you don't\r\nrecognise\
+    \ this account, remove\r\n<https://accounts.google.com/AccountDisavow?adt=AOX8kiqoXqWi4v1lCVtmqbfGJgjpM5CIz97iCEj_9Jq0wOjOq6w1GtxSP9_-ZA&rfn=20>\r\
+    \nit.\r\n[im"
+  reason: Google安全提示，不可退订的账号通知
+  message_id: <HQaMLqU-XRXalrTDdzwH2Q@notifications.google.com>
+  category: 记录/公告
+  first_seen: '2026-06-27T08:31:33.990956+00:00'
+  processed_at: '2026-06-27T08:32:02.091022+00:00'
+- uid: '6206'
+  account: chengsun2001@gmail.com
+  subject: '[GitHub] Please download your two-factor recovery codes'
+  sender: GitHub <noreply@github.com>
+  date_str: 2026-06-26 05:17
+  date_iso: '2026-06-26T05:17:51-07:00'
+  snippet: "Hey fercopsun!\r\n\r\nYou’ve just enabled two-factor authentication.\r\
+    \n\r\nPlease take a moment to check that you have saved your recovery codes in\
+    \ a safe place. You can\r\ndownload your recovery codes at:\r\n\r\nhttps://github.com/settings/auth/recovery-codes\r\
+    \n\r\nRecovery codes are the only way to access your ac"
+  reason: GitHub双因素恢复码通知
+  message_id: <6a3e6defbc47_e21120929a0@sharedworker-689f4f795d-cb2fd.mail>
+  category: 记录/公告
+  first_seen: '2026-06-27T08:46:45.872951+00:00'
+  processed_at: '2026-06-27T08:51:13.805002+00:00'
+- uid: '6205'
+  account: chengsun2001@gmail.com
+  subject: '[GitHub] Sudo email verification code'
+  sender: GitHub <noreply@github.com>
+  date_str: 2026-06-26 05:15
+  date_iso: '2026-06-26T05:15:47-07:00'
+  snippet: "Hey, fercopsun!\r\n\r\nHere is your GitHub sudo authentication code: 67575493\r\
+    \nThis code is valid for 15 minutes and can only be used once.\r\n\r\nPlease don't\
+    \ share this code with anyone: we'll never ask for it on the phone or via email.\r\
+    \nThanks,\r\nThe GitHub Team"
+  reason: GitHub验证码通知，一对一
+  message_id: <6a3e6d731d61d_f311208351@accountsecurityworker-6f6bb876cf-7lnrn.mail>
+  category: 记录/公告
+  first_seen: '2026-06-27T08:46:45.872951+00:00'
+  processed_at: '2026-06-27T08:51:13.805030+00:00'
+marked_read:
+- message_id: <1074345894.2279211.1782523145169@lor1-app148876.prod.linkedin.com>
+  account: chengsun2001@gmail.com
+  marked_at: '2026-06-27T08:33:38.828825+00:00'
+- message_id: <e6KN4Cy2S-22ZK165qvm8A@geopod-ismtpd-canary-0>
+  account: chengsun2001@gmail.com
+  marked_at: '2026-06-27T08:33:38.828871+00:00'
+- message_id: <XAM-xDujQwKHBv91puSuoQ@geopod-ismtpd-4>
+  account: chengsun2001@gmail.com
+  marked_at: '2026-06-27T08:33:38.828897+00:00'
+- message_id: <6d93d00927e06e451acf69f64.0304bbfb68.20260626160205.2c268e31c2.adca99eb@mail23.suw151.rsgsv.net>
+  account: chengsun2001@gmail.com
+  marked_at: '2026-06-27T08:33:38.828910+00:00'
+- message_id: <BIAPPL2135c8e413c984a7abe5b83ea3a3711ab@BIAPPL2>
+  account: chengsun2001@gmail.com
+  marked_at: '2026-06-27T08:33:38.828923+00:00'
+- message_id: <94c86d134a22e1357a759bd6d.da54738928.20260626153017.5fa7f7ee44.c2d56d85@mail197.suw12.mcsv.net>
+  account: chengsun2001@gmail.com
+  marked_at: '2026-06-27T08:33:38.828928+00:00'
+- message_id: <gAqmmXDmR2CFduxh5mH_8g@geopod-ismtpd-8>
+  account: chengsun2001@gmail.com
+  marked_at: '2026-06-27T08:33:38.828933+00:00'
+- message_id: <0.0.49.B.1DD055AF7E8F1C6.0@emx222.instillerhq.com>
+  account: chengsun2001@gmail.com
+  marked_at: '2026-06-27T08:33:38.828937+00:00'
+- message_id: <2A.47.37421.5B58F3A6@i-02dd5cd2520ad3386.mta3vrest.sd.prd.sparkpost>
+  account: 3220653277@qq.com
+  marked_at: '2026-06-27T08:33:38.828941+00:00'
+- message_id: <mid-1782547421442d490efaabb42@mail.ralphlauren.eu>
+  account: 3220653277@qq.com
+  marked_at: '2026-06-27T08:33:38.828952+00:00'
+- message_id: <20260627063932.8ff91e339c4178cf@email.petshop.co.uk>
+  account: 3220653277@qq.com
+  marked_at: '2026-06-27T08:33:38.828957+00:00'
+- message_id: <999.2992619685.202606270607569666742.0008388568@Emailuk.thewhitecompany.com>
+  account: 3220653277@qq.com
+  marked_at: '2026-06-27T08:33:38.828962+00:00'
+- message_id: <01KW3SRV48E1H6WB272NSM7PXF@klaviyomail.com>
+  account: 3220653277@qq.com
+  marked_at: '2026-06-27T08:33:38.828967+00:00'
+- message_id: <0102019f06f00ada-abf1a204-28d5-424c-9c54-d4af9025ed0e-000000@eu-west-1.amazonses.com>
+  account: 3220653277@qq.com
+  marked_at: '2026-06-27T08:33:38.828971+00:00'
+- message_id: <E1wdFXD-0000000BWG3-3GWU@smtp-05-tuk1.steampowered.com>
+  account: 3220653277@qq.com
+  marked_at: '2026-06-27T08:33:38.828975+00:00'
+- message_id: <999.2992024364.202606262101242289041.0008535467@Emailuk.thewhitecompany.com>
+  account: 3220653277@qq.com
+  marked_at: '2026-06-27T08:33:38.828979+00:00'
+- message_id: <0102019f0559d199-1b068064-480b-4520-b965-e640f6d65246-000000@eu-west-1.amazonses.com>
+  account: 3220653277@qq.com
+  marked_at: '2026-06-27T08:33:38.828984+00:00'
+- message_id: <F7.AC.10365.BBB7E3A6@i-054dadb70983920b4.mta1vrest.sd.prd.sparkpost>
+  account: 3220653277@qq.com
+  marked_at: '2026-06-27T08:33:38.828988+00:00'
+- message_id: <e64cc3272bd4f396d5dd4f161.80e99321df.20260626130114.2bec3631d8.4aefea91@mail182.atl21.rsgsv.net>
+  account: 3220653277@qq.com
+  marked_at: '2026-06-27T08:33:38.828994+00:00'
+- message_id: <B4.14.55273.75C6E3A6@i-0f52fc3119f15b46b.mta1vrest.sd.prd.sparkpost>
+  account: 3220653277@qq.com
+  marked_at: '2026-06-27T08:33:38.829009+00:00'
+- message_id: <2738c873-7943-30b8-8ef8-61d5c9a8680c@mail.uber.com>
+  account: 3220653277@qq.com
+  marked_at: '2026-06-27T08:33:38.829020+00:00'
+- message_id: <8216379ff4e670ee7bc8bb91cd704dd478993f5046bd24612f9eaa732740ba25@news-eur.market.shein.com>
+  account: 3220653277@qq.com
+  marked_at: '2026-06-27T08:33:38.829027+00:00'
+- message_id: <vuOzzFR_RbeSmLBZs6ggOQ@geopod-ismtpd-83>
+  account: 3220653277@qq.com
+  marked_at: '2026-06-27T08:33:38.829032+00:00'
+- message_id: <7QZM.2777.FB58E0C868B1FF3EHTBY1107713CEC27AD2A5.06e29106-7360-464b-9db2-860241c064b5@int.yohjiyamamoto.co.jp>
+  account: 3220653277@qq.com
+  marked_at: '2026-06-27T08:33:38.829037+00:00'

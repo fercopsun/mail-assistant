@@ -60,7 +60,8 @@ def save_llm_config(config: dict) -> None:
 
 
 _SETTINGS_DEFAULTS: dict = {
-    "auto_mark_read": False,
+    "auto_mark_read_ad": False,
+    "auto_mark_read_info": False,
 }
 
 
